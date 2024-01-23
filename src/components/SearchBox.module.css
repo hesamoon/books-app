@@ -1,5 +1,4 @@
 .search {
-  margin-bottom: 50px;
 }
 
 .search input {
@@ -22,7 +21,7 @@
   height: 40px;
   border: none;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background-color: #6552f4;
   color: #e0e0e0;
   cursor: pointer;

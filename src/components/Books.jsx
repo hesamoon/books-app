@@ -1,16 +1,20 @@
 import { useState } from "react";
+import { AiFillHeart } from "react-icons/ai";
 
 import { books as bookData } from "../constants/mockData.js";
+
+// components
 import BookCard from "./BookCard.jsx";
 import SideCard from "./SideCard.jsx";
+import SearchBox from "./SearchBox.jsx";
 
 import styles from "./Books.module.css";
-import SearchBox from "./SearchBox.jsx";
 
 function Books() {
   const [books, setBooks] = useState(bookData);
   const [liked, setLiked] = useState([]);
   const [search, setSearch] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const handleLikedList = (book, status) => {
     if (status) {
@@ -32,13 +36,35 @@ function Books() {
     }
   };
 
+  const favoriteClickHandler = () => {
+    setOpen((prev) => !prev);
+  };
+
   return (
     <>
-      <SearchBox
-        search={search}
-        setSearch={setSearch}
-        searchHandler={searchHandler}
-      />
+      <div className={styles.wrap}>
+        <div className={styles.favs} onClick={favoriteClickHandler}>
+          <AiFillHeart
+            color={liked.length ? "red" : "#e0e0e0"}
+            fontSize="2rem"
+          />
+
+          {!!liked.length && open && (
+            <div className={styles.modal}>
+              <h4>Favorites</h4>
+              {liked.map((book) => (
+                <SideCard key={book.id} data={book} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <SearchBox
+          search={search}
+          setSearch={setSearch}
+          searchHandler={searchHandler}
+        />
+      </div>
 
       <div className={styles.container}>
         <div className={styles.cards}>
